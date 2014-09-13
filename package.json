@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/gmdayley/rethinku/issues"
   },
-  "homepage": "https://github.com/gmdayley/rethinku"
+  "homepage": "https://github.com/gmdayley/rethinku",
+  "dependencies": {
+    "koa": "^0.11.0",
+    "rethinkdb": "^1.14.0-0"
+  }
 }
