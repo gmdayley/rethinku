@@ -1,9 +1,12 @@
-var gulp = require('gulp')
-var browserify = require('gulp-browserify')
-var reactify = require('reactify')
-var gutil = require('gulp-util')
-var rename = require('gulp-rename')
-var livereload = require('gulp-livereload')
+/* jshint node:true */
+'use strict';
+
+var gulp = require('gulp');
+var browserify = require('gulp-browserify');
+// var reactify = require('reactify');
+var gutil = require('gulp-util');
+var rename = require('gulp-rename');
+var livereload = require('gulp-livereload');
 
 var paths = {
     // css: ['src/css/**/*.styl'],
@@ -14,15 +17,7 @@ var paths = {
 };
 
 gulp.task('js', function() {
-    browserify(paths.index)
-        .transform(reactify)
-        .bundle()
-        .pipe(gulp.source('main.js'))
-        .pipe(gulp.dest('./dist'))
-})
-
-gulp.task('js', function() {
-  var production = gutil.env.type === 'production'
+  var production = gutil.env.type === 'production';
 
   gulp.src(['public/index.js'], {read: false})
 
@@ -43,11 +38,11 @@ gulp.task('js', function() {
 
     // Output to the build directory
     .pipe(gulp.dest('public/dist/'))
-    .pipe(livereload({auto:false}))
+    .pipe(livereload({auto:false}));
 });
 
 gulp.task('watch', function() {
-    livereload.listen()
+    livereload.listen();
     // gulp.watch(paths.css, ['css']);
     gulp.watch(paths.jsx.concat(paths.js), ['js']);
 });
