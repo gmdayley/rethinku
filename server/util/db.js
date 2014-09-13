@@ -2,9 +2,12 @@
 /* global -Promise */
 'use strict';
 
-var config = require('config');
-var r = require('rethinkdb');
+var events = require('events');
+var  config = require('config');
+var       r = require('rethinkdb');
 var Promise = require('bluebird');
+
+var ee = new events();
 
 // DATABASE CONFIG
 var connection = null;
@@ -14,11 +17,17 @@ r.connect({
   db: config.rethink.db
 }, function (err, conn) {
   connection = conn;
+  ee.emit('gotConnection');
 });
 
 function run(query) {
   return new Promise(function (resolve, reject) {
-    if (!connection) return reject(new Error('Missing Connection'));
+    if (!connection) {
+      ee.on('gotConnection', function () {
+        run(query).then(resolve, reject);
+      });
+      return;
+    }
     if (!query) return reject(new Error('Missing Query'));
     query.run(connection, function (err, cursor) {
       if (err) return reject(err);
