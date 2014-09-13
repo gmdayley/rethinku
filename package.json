@@ -2,9 +2,8 @@
   "name": "rethinku",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --harmony server/server.js"
   },
   "repository": {
     "type": "git",
