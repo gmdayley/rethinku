@@ -13,15 +13,14 @@ module.exports = function (app) {
   });
 
   app.post('/course', function*() {
-    console.log(this.body);
-    // yield Course.insert();
+    yield Course.insert(this.request.body);
   });
 
-  app.put('/course', function*() {
-    // yield Course.insert()
+  app.put('/course/:id', function*() {
+    yield Course.save(this.params.id, this.request.body);
   });
 
-  app.delete('/course', function*() {
-    // whaaa?
+  app.delete('/course/:id', function*() {
+    yield Course.delete(this.params.id);
   });
 };
