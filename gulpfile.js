@@ -20,7 +20,7 @@ gulp.task('js', function() {
         .pipe(gulp.dest('./dist'))
 })
 
-gulp.task('browserify', function() {
+gulp.task('js', function() {
   var production = gutil.env.type === 'production'
 
   gulp.src(['public/index.js'], {read: false})
@@ -42,4 +42,9 @@ gulp.task('browserify', function() {
 
     // Output to the build directory
     .pipe(gulp.dest('public/dist/'));
+});
+
+gulp.task('watch', function() {
+    // gulp.watch(paths.css, ['css']);
+    gulp.watch(paths.jsx.concat(paths.js), ['js']);
 });
