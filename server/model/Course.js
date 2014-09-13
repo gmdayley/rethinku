@@ -1,11 +1,12 @@
 /* jshint node:true */
 'use strict';
 
-var r = require('rethinkdb');
-var db = require('../util/db');
+var config = require('config');
+var      r = require('rethinkdb');
+var     db = require('../util/db');
 
 // console.log(r);
-var table = r.db('rethinkdb').table('course');
+var table = r.db(config.rethink.db).table(config.rethink.tables.course);
 
 exports.findOne = function(id) {
   return db.run(table.get(id));
