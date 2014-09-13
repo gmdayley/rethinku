@@ -37,7 +37,7 @@ var CourseListItem = React.createClass({
   render: function() {
     return (
         <div>
-          <a href="/courses/1234">
+          <a href={"/#/course/" + this.props.course.id}>
             <span>{this.props.course.stem}</span>
             <span>{this.props.course.number}</span>
             <span>{this.props.course.title}</span>
