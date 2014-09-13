@@ -2,22 +2,27 @@
 'use strict';
 
 var koa = require('koa');
-var Course = require('./model/Course')
+var config = require('config');
+var Course = require('./model/Course');
 
-var r = require('rethinkdb')
-var db = require('./model/db')
+var r = require('rethinkdb');
+var db = require('./model/db');
 
 // DATABSE CONNECTION /////////////
 
-var conn = null
+var conn = null;
 function run(query) {
-    return db.run(conn, query)
+    return db.run(conn, query);
 }
 
-r.connect({host:'localhost', port:28015, db:'rethinku'}, function(err, c) {
-    conn = c
-    Course.init(run)
-})
+r.connect({
+  host:config.rethink.host,
+  port:config.rethink.port,
+  db:config.rethink.db
+}, function(err, c) {
+    conn = c;
+    Course.init(run);
+});
 
 var app = koa();
 
@@ -25,4 +30,4 @@ app.use(function *() {
   this.body = 'Hello World';
 });
 
-app.listen(3000);
+app.listen(config.port);
