@@ -1,0 +1,23 @@
+{
+  "name": "rethinku",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gmdayley/rethinku.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gmdayley/rethinku/issues"
+  },
+  "homepage": "https://github.com/gmdayley/rethinku",
+  "dependencies": {
+    "koa": "^0.11.0",
+    "rethinkdb": "^1.14.0-0"
+  }
+}
