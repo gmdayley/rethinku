@@ -14,7 +14,7 @@ var paths = {
 
 gulp.task('js', function() {
     browserify(paths.index)
-        // .transform(reactify)
+        .transform(reactify)
         .bundle()
         .pipe(gulp.source('main.js'))
         .pipe(gulp.dest('./dist'))
@@ -28,7 +28,7 @@ gulp.task('browserify', function() {
     // Browserify, and add source maps if this isn't a production build
     .pipe(browserify({
       debug: !production,
-      // transform: ['reactify'],
+      transform: ['reactify'],
       extensions: ['.jsx']
     }))
 
