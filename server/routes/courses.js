@@ -3,10 +3,8 @@
 
 var Course = require('../model/Course');
 
-module.exports = function (app, run) {
-  Course.init(run);
-
+module.exports = function (app) {
   app.get('/courses', function*() {
-      this.body = yield Course.findAll();
+    this.body = yield Course.findAll();
   });
 };
