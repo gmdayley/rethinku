@@ -1,6 +1,14 @@
 var React = require('react');
+var $ = require("jquery")
+
+console.log("Check jquery", $)
 
 var MyView = React.createClass({
+
+  getInitialState: function() {
+    return {}
+  },
+
   render: function() {
     return (
       <table>

@@ -3,7 +3,7 @@ var Router = require('react-router')
 var view = require('./view.jsx')
 var one = require('./one.jsx')
 var two = require('./two.jsx')
-var courseList = require('./courseList.jsx')
+var courseList = require('./courses/courseList.jsx')
 var notFound = require('./notFound.jsx')
 
 var Route = Router.Route
