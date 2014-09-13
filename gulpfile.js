@@ -9,8 +9,8 @@ var paths = {
     // css: ['src/css/**/*.styl'],
     // index_js: ['./src/js/index.jsx'],
     index: './public/main.js',
-    js: ['./public/*.js'],
-    jsx: ['./public/*.jsx']
+    js: ['./public/js/*.js', './public/js/**/*.js'],
+    jsx: ['./public/js/*.jsx', './public/js/**/*.jsx']
 };
 
 gulp.task('js', function() {
