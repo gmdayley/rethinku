@@ -11,21 +11,33 @@ var body = require('koa-body');
 
 var r = require('rethinkdb');
 var db = require('./model/db');
+var Course = require('./model/Course');
 
-// DATABSE CONNECTION /////////////
 
+// DATABASE CONFIG
 var conn = null;
+
+function ignoreError(err) {}
+
 function run(query) {
-    return db.run(conn, query);
+  return db.run(conn, query);
 }
 
 r.connect({
-  host:config.rethink.host,
-  port:config.rethink.port,
-  db:config.rethink.db
-}, function(err, c) {
-    conn = c;
+  host: config.rethink.host,
+  port: config.rethink.port,
+  db: config.rethink.db
+}, function (err, c) {
+  conn = c;
+
+  // Create database
+  conn.run(r.dbCreate(config.rethink.db), function(err) {
+    var db = r.db(config.rethink.db);
+    conn.use(config.rethink.db);
+    conn.run(Course.init(db), ignoreError);
+  });
 });
+
 
 var app = koa();
 

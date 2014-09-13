@@ -1,33 +1,26 @@
-var r = require('rethinkdb')
-var db = require('./db')
+var r = require('rethinkdb');
+var db = require('../util/db');
 
-
-var table = r.table('course')
-
-// set me from the outside
-var run = null
-exports.init = function(r) {
-    run = r
-}
+var table = r.table('course');
 
 exports.findOne = function(id) {
-    return run(table.get(id))
+    return db.db.run(table.get(id))
 }
 
 exports.findAll = function() {
-    return run(table)
+    return db.run(table)
 }
 
 exports.insert = function*(item) {
     delete item.id
-    var result = yield run(table.insert(item))
+    var result = yield db.run(table.insert(item))
     return db.toKey(result)
 }
 
 exports.save = function(id, item) {
-    return run(table.get(id).replace(item))
+    return db.run(table.get(id).replace(item))
 }
 
 exports.delete = function(id) {
-    return run(table.get(id).delete())
+    return db.run(table.get(id).delete())
 }
