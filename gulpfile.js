@@ -3,6 +3,7 @@ var browserify = require('gulp-browserify')
 var reactify = require('reactify')
 var gutil = require('gulp-util')
 var rename = require('gulp-rename')
+var livereload = require('gulp-livereload')
 
 var paths = {
     // css: ['src/css/**/*.styl'],
@@ -41,10 +42,12 @@ gulp.task('js', function() {
     .pipe(rename('bundle.js'))
 
     // Output to the build directory
-    .pipe(gulp.dest('public/dist/'));
+    .pipe(gulp.dest('public/dist/'))
+    .pipe(livereload({auto:false}))
 });
 
 gulp.task('watch', function() {
+    livereload.listen()
     // gulp.watch(paths.css, ['css']);
     gulp.watch(paths.jsx.concat(paths.js), ['js']);
 });
