@@ -9,7 +9,7 @@ var MyView = React.createClass({
 
   componentDidMount: function() {
     var self = this
-    $.get("/courses", function(result) {
+    $.get("/course", function(result) {
       self.setState({courses:result})
     })
   },
