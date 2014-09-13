@@ -23,6 +23,7 @@ exports.insert = function*(item) {
 };
 
 exports.save = function(id, item) {
+  item.id = id;
   return db.run(table.get(id).replace(item));
 };
 

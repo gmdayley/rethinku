@@ -32,7 +32,12 @@ function run(query) {
   });
 }
 
+function toKey(result) {
+  return { id: result.generated_keys[0] };
+}
+
 module.exports = {
   run: run,
+  toKey: toKey,
   connection: connection
 };
