@@ -1,10 +1,10 @@
 /* jshint node:true */
 'use strict';
 
-var Course = require('../model/Course');
+var Course = require('../model/course');
 
 module.exports = function (app, io) {
-  app.get('/courses', function*() {
+  app.get('/course', function*() {
     this.body = yield Course.findAll();
   });
 

@@ -9,11 +9,11 @@ var rename = require('gulp-rename');
 var livereload = require('gulp-livereload');
 
 var paths = {
-    // css: ['src/css/**/*.styl'],
-    // index_js: ['./src/js/index.jsx'],
-    index: './public/main.js',
-    js: ['./public/js/*.js', './public/js/**/*.js'],
-    jsx: ['./public/js/*.jsx', './public/js/**/*.jsx']
+  // css: ['src/css/**/*.styl'],
+  // index_js: ['./src/js/index.jsx'],
+  index: './public/main.js',
+  js: ['./public/js/*.js', './public/js/**/*.js'],
+  jsx: ['./public/js/*.jsx', './public/js/**/*.jsx']
 };
 
 gulp.task('js', function() {
@@ -42,25 +42,31 @@ gulp.task('js', function() {
 });
 
 gulp.task('watch', function() {
-    livereload.listen();
-    // gulp.watch(paths.css, ['css']);
-    gulp.watch(paths.jsx.concat(paths.js), ['js']);
+  livereload.listen();
+  // gulp.watch(paths.css, ['css']);
+  gulp.watch(paths.jsx.concat(paths.js), ['js']);
 });
 
 
 var db = require('./server/util/db');
 var r = require('rethinkdb');
 var config = require('config');
-var data = require('./data/courses.json');
+var courseData = require('./data/courses.json');
+var employeeData = require('./data/employees.json');
 
 gulp.task('db', function () {
-    var dbName = config.rethink.db;
-    var tableName = config.rethink.tables.course;
+  var dbName = config.rethink.db;
+  var courseTable = config.rethink.tables.course;
+  var employeeTable = config.rethink.tables.employee;
 
-    // create database
-    db.run(r.dbCreate(dbName));
-    // create table
-    db.run(r.db(dbName).tableCreate(tableName));
-    // load data
-    db.run(r.db(dbName).table(tableName).insert(data));
+  // create database
+  db.run(r.dbCreate(dbName));
+
+  // create table
+  db.run(r.db(dbName).tableCreate(courseTable));
+  db.run(r.db(dbName).tableCreate(employeeTable));
+
+  // load data
+  db.run(r.db(dbName).table(courseTable).insert(courseData));
+  db.run(r.db(dbName).table(employeeTable).insert(employeeData));
 });
