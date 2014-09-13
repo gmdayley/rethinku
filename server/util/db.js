@@ -2,7 +2,7 @@
 /* global -Promise */
 'use strict';
 
-var events = require('events');
+var  events = require('events');
 var  config = require('config');
 var       r = require('rethinkdb');
 var Promise = require('bluebird');

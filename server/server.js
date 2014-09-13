@@ -20,13 +20,19 @@ app.use(cors());
 app.use(body());
 app.use(router(app));
 
+// --- Create Servers ----------------------------------------------------------
+
+var server = require('http').Server(app.callback());
+var io = require('socket.io')(server);
+
 // --- Load Routes -------------------------------------------------------------
 
 fs.readdirSync(__dirname + '/routes').forEach(function (filename) {
   if (filename === '.DS_Store') return;
-  require('./routes/' + filename)(app);
+  require('./routes/' + filename)(app, io);
 });
 
 // --- Listen ------------------------------------------------------------------
 
-app.listen(config.port);
+server.listen(config.port);
+console.log('server listening on port ' + config.port);
