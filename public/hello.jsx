@@ -4,7 +4,7 @@ var MyView = React.createClass({
   render: function(){
     return (
       <div>
-        Example 34
+        Hello World
       </div>
     );
   }

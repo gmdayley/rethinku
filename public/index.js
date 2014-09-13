@@ -1,4 +1,5 @@
-console.log("HI2")
-var React = require('react');
-var view = require('./view.jsx'); // need to specify the jsx extension
-React.renderComponent(view(), document.getElementById('main'));
+var React = require('react')
+var routes = require('./routes')
+console.log("Loaded Index", routes)
+React.renderComponent(routes, document.getElementById('main'))
+
