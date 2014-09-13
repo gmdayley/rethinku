@@ -46,3 +46,21 @@ gulp.task('watch', function() {
     // gulp.watch(paths.css, ['css']);
     gulp.watch(paths.jsx.concat(paths.js), ['js']);
 });
+
+
+var db = require('./server/util/db');
+var r = require('rethinkdb');
+var config = require('config');
+var data = require('./data/courses.json');
+
+gulp.task('db', function () {
+    var dbName = config.rethink.db;
+    var tableName = config.rethink.tables.course;
+
+    // create database
+    db.run(r.dbCreate(dbName));
+    // create table
+    db.run(r.db(dbName).tableCreate(tableName));
+    // load data
+    db.run(r.db(dbName).table(tableName).insert(data));
+});
