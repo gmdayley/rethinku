@@ -5,7 +5,8 @@ module.exports = {
     port: 28015,
     db: 'rethinku',
     tables: {
-      course: 'course'
+      course: 'course',
+      employee: 'employee'
     }
   },
   port: 3000
