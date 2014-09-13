@@ -4,4 +4,3 @@ npm-debug.log
 config/localdev.js
 rethinkdb_data
 dist
-node_modules
