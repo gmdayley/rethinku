@@ -1,5 +1,6 @@
 var React = require('react');
 var $ = require("jquery")
+var CourseService = require('./courseService')
 
 var MyView = React.createClass({
 
@@ -7,15 +8,16 @@ var MyView = React.createClass({
     return {courses:[]}
   },
 
-  componentDidMount: function() {
-    var self = this
-    $.get("/course", function(result) {
-      self.setState({courses:result})
-    })
+  componentWillMount: function() {
+    // bind the service to our local state
+    // alternatively, pass the courses in to this component as props
+    this.courses = new CourseService()
+    this.courses.loadList().then(function() {
+      this.setState({courses: this.courses.list})
+    }.bind(this))
   },
 
   render: function() {
-
     var list = this.state.courses.map(function(course) {
       return (
         <CourseListItem course={course} />
@@ -31,6 +33,7 @@ var MyView = React.createClass({
   }
 });
 module.exports = MyView;
+
 
 
 var CourseListItem = React.createClass({
