@@ -26,7 +26,7 @@ var MyView = React.createClass({
 
     return (
       <div>
-        <h3>Courses</h3>
+        <h3>All Courses</h3>
         <div>{list}</div>
       </div>
     )

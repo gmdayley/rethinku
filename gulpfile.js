@@ -2,49 +2,65 @@
 'use strict';
 
 var gulp = require('gulp');
-var browserify = require('gulp-browserify');
-// var reactify = require('reactify');
+var reactify = require('reactify');
+var source = require('vinyl-source-stream')
+var browserify = require('browserify')
+var watchify = require('watchify')
 var gutil = require('gulp-util');
 var rename = require('gulp-rename');
 var livereload = require('gulp-livereload');
+var debug = require('gulp-debug')
 
 var paths = {
   // css: ['src/css/**/*.styl'],
   // index_js: ['./src/js/index.jsx'],
-  index: './public/main.js',
+  index: './public/index.js',
   js: ['./public/js/*.js', './public/js/**/*.js'],
   jsx: ['./public/js/*.jsx', './public/js/**/*.jsx']
 };
 
+
+
+// JAVASCRIPT / REACT / BROWSERIFY Bundling
+var jsBundle;
+function lazyCreateJSBundle() {
+  if (!jsBundle) {
+    var production = gutil.env.type === 'production';
+    jsBundle = watchify(browserify(paths.index, watchify.args))
+    jsBundle.transform(reactify)
+  }
+  return jsBundle
+}
+
+function runJSBundle() {
+  gutil.log("JSBundle")
+  return lazyCreateJSBundle().bundle()
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('./public/dist'))
+    .on('end', function() {
+      gutil.log("JSBundle: Done")
+    })
+}
+
+// compile once
 gulp.task('js', function() {
-  var production = gutil.env.type === 'production';
-
-  return gulp.src(['public/index.js'], {read: false})
-
-    // Browserify, and add source maps if this isn't a production build
-    .pipe(browserify({
-      debug: !production,
-      transform: ['reactify'],
-      extensions: ['.jsx']
-    }))
-
-    // .on('prebundle', function(bundler) {
-    //   // Make React available externally for dev tools
-    //   bundler.require('react');
-    // })
-
-    // Rename the destination file
-    .pipe(rename('bundle.js'))
-
-    // Output to the build directory
-    .pipe(gulp.dest('public/dist/'))
-    .pipe(livereload({auto:false}));
+  return runJSBundle()
 });
 
+// watch for changes manually. See https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md
 gulp.task('watch', function() {
   livereload.listen();
+  var js = lazyCreateJSBundle()
+  js.on('update', function() {
+    return runJSBundle() 
+    .on('end', function() {
+      livereload.changed()
+    })
+  })
+  return runJSBundle()
   // gulp.watch(paths.css, ['css']);
-  gulp.watch(paths.jsx.concat(paths.js), ['js']);
+  // gulp.watch(paths.jsx.concat(paths.js), ['js']);
 });
 
 
