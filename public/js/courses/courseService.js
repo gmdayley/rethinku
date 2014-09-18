@@ -2,7 +2,7 @@ var $ = require('jquery')
 var Promise = require('bluebird')
 
 function CourseService() {
-    this.url = "/courses"
+    this.url = "/course"
     this.list = []
 }
 

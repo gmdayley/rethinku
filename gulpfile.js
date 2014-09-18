@@ -19,7 +19,7 @@ var paths = {
 gulp.task('js', function() {
   var production = gutil.env.type === 'production';
 
-  gulp.src(['public/index.js'], {read: false})
+  return gulp.src(['public/index.js'], {read: false})
 
     // Browserify, and add source maps if this isn't a production build
     .pipe(browserify({

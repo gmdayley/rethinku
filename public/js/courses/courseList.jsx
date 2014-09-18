@@ -35,7 +35,6 @@ var MyView = React.createClass({
 module.exports = MyView;
 
 
-
 var CourseListItem = React.createClass({
   render: function() {
     return (

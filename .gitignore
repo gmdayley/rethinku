@@ -5,3 +5,5 @@ config/localdev.js
 rethinkdb_data
 dist
 node_modules
+ideas.txt
+test.ts
