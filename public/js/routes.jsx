@@ -11,14 +11,15 @@ var Routes = Router.Routes
 var DefaultRoute = Router.DefaultRoute
 var NotFoundRoute = Router.NotFoundRoute
 var Link = Router.Link
+var Redirect = Router.Redirect
 
 module.exports = (
   <Routes>
-    <Route name="courses" path="/" handler={view} >
-      <Route path="course/:courseId" handler={courseDetail}/>
-      <Route name="two" handler={two} />
-	    <DefaultRoute handler={courseList}/>
-    </Route >
+    <Route name="courses" path="/course" handler={view} >
+      <Route path="/course/:courseId" handler={courseDetail}/>
+      <DefaultRoute handler={courseList}/>
+    </Route>
+    <Redirect path="/" to="/course" />
     <NotFoundRoute handler={notFound} />
   </Routes>
 );
