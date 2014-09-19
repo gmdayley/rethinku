@@ -1,6 +1,6 @@
 var React = require('react');
 var Router = require('react-router')
-var view = require('./view.jsx')
+var courseParent = require('./courses/course-parent.jsx')
 var courseDetail = require('./courses/course-detail.jsx')
 var two = require('./two.jsx')
 var courseList = require('./courses/course-list.jsx')
@@ -15,7 +15,7 @@ var Redirect = Router.Redirect
 
 module.exports = (
   <Routes>
-    <Route name="courses" path="/course" handler={view} >
+    <Route name="courses" path="/course" handler={courseParent} >
       <Route path="/course/:courseId" handler={courseDetail}/>
       <DefaultRoute handler={courseList}/>
     </Route>
