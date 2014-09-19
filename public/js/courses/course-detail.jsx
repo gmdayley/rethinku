@@ -1,18 +1,13 @@
 var React = require('react');
 var $ = require('jquery');
+var courseService = require('./course-service')
 
 var MyView = React.createClass({
   loadCourseFromServer: function() {
-    $.ajax({
-      url: '/course/' + this.props.params.courseId,
-      dataType: 'json',
-      success: function(data) {
+    courseService.getCourse(this.props.params.courseId)
+    .then(function(data) {
         this.setState({ course: data });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+    }.bind(this))
   },
   getInitialState: function() {
     return { course: [] };

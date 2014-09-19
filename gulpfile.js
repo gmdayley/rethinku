@@ -26,7 +26,9 @@ var jsBundle;
 function lazyCreateJSBundle() {
   if (!jsBundle) {
     var production = gutil.env.type === 'production';
-    jsBundle = watchify(browserify(paths.index, watchify.args))
+    var args = watchify.args
+    args.debug = !production
+    jsBundle = watchify(browserify(paths.index, args))
     jsBundle.transform(reactify)
   }
   return jsBundle
